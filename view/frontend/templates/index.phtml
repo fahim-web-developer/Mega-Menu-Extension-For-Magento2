@@ -1,0 +1,206 @@
+<div class="navi-wrapper">
+    <header class="header">
+        <div class="row">
+            <div class="col-lg-12 col-lg-offset-1">
+                <div class="">
+                    <div class="overlay"></div>
+                    <nav class="menu" id="menu">
+                        <div class="menu-mobile-header"><button type="button" class="menu-mobile-arrow"><i class="fa fa-arrow-left"></i></button>
+                            <div class="menu-mobile-title"></div><button type="button" class="menu-mobile-close"><i class="fa fa-close"></i></button></div>
+                        <ul class="menu-section" style="margin-bottom: 0;display: flex;justify-content: space-around;">
+                            <li class="menu-item-has-children">
+                                <span class="mobile_menu_item">
+                                    <a href="<?= $this->getUrl('about-us'); ?>"><?= __('About Us') ?></a>
+                                </span>
+                                 <a class="d_menu" href="<?= $this->getUrl('about-us'); ?>"><span><?= __('About Us') ?></span></a>
+                            </li>
+                            <?php  $getCategoryCollection = $block->getCategoryCollection(2); ?>
+                            <?php  foreach($getCategoryCollection as $firstLavel):?>   
+                                <?php $getCatDetails = $block->getCatDetails($firstLavel->getId()); ?>
+                                <?php if ($firstLavel->getIsActive() == 1 && $getCatDetails->getData('include_in_menu') == 1):?>
+                                    <li class="menu-item-has-children">
+
+                                        <span class="mobile_menu_item"><a href="<?= $firstLavel->getUrl(); ?>"><?= $firstLavel->getName(); ?></i></a></span>
+                                         
+                                        <a class="d_menu" href="<?= $firstLavel->getUrl(); ?>"><span><?= $firstLavel->getName(); ?></span><i class="fa fa-arrow-down"></i></a>
+                                        <div class="menu-subs menu-mega menu-column-4">
+                                            <?php
+                                                
+                                                $width_left = $getCatDetails->getData('Fahim_menu_width_left');  
+                                                $block_left = $getCatDetails->getData('Fahim_menu_block_left');  
+                                                $width_right = $getCatDetails->getData('Fahim_menu_width_right');  
+                                                $block_right = $getCatDetails->getData('Fahim_menu_block_right');
+
+                                                if ($block_left) { $a = $width_left; }else{ $a = 0; }
+
+                                                if ($block_right) { $b = $width_right; }else{ $b = 0; }
+
+                                                $items_width = 100-($a+$b);
+                                            ?>
+                                            <?php if ($block_left): ?>
+                                                <div class="mega_menu_left_items" style="width: <?= $width_left ?>%;"><?= $block->filterOutputHtml($block_left);  ?></div>
+                                            <?php endif; ?>
+                                             
+                                            <div class="mega_menu_items" style="width: <?= $items_width ?>%;">
+                                                <?php $getCategoryCollection = $block->getCategoryCollection($firstLavel->getId()); ?>
+                                                <?php $i =1; ?>
+                                                <?php $count =count($getCategoryCollection); ?>
+                                                <?php  foreach($getCategoryCollection as $key => $secondLavel):?>
+                                                    <?php $getCatDetails2 = $block->getCatDetails($secondLavel->getId()); ?>
+                                                    <?php if ($secondLavel->getIsActive() == 1 && $getCatDetails2->getData('include_in_menu') == 1):?>
+
+                                                        <?php if ($count > $i): ?>
+                                                             <div class="list-item border-right"style="width:<?php if ($items_width == 75) {echo "33%";}elseif ($items_width == 50) {echo "50%";} ?>;">
+                                                        <?php else: ?>
+                                                             <div class="list-item">
+                                                        <?php endif; ?> 
+                                                       
+                                                            <h4 class="title"><a href="<?= $secondLavel->getUrl(); ?>"><?= $secondLavel->getName(); ?></a></h4>
+                                                            <ul>
+                                                                <?php $getCategoryCollection = $block->getCategoryCollection($secondLavel->getId()); ?>
+                                                                <?php  foreach($getCategoryCollection as $thirdLavel):?>
+                                                                    <?php $getCatDetails3 = $block->getCatDetails($thirdLavel->getId()); ?>
+                                                                    <?php if ($thirdLavel->getIsActive() == 1 && $getCatDetails3->getData('include_in_menu') == 1):?>
+
+                                                                     <li><a href="<?= $thirdLavel->getUrl(); ?>"><?= $thirdLavel->getName(); ?></a></li>
+
+                                                                    <?php endif; ?>
+                                                                <?php endforeach; ?>
+                                                            </ul>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <?php if ($block_right): ?>
+                                                <div class="mega_menu_right_items" style="width: <?= $width_right ?>%;"><?= $block->filterOutputHtml($block_right);  ?></div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+
+
+                            <li class="menu-item-has-children">
+                                <span class="mobile_menu_item">
+                                    <a href="javascript:void(0)"><?= __('Shop By Brands') ?></a>
+                                </span>
+                                 <a class="d_menu" href="javascript:void(0)"><span><?= __('Shop By Brands') ?></span><i class="fa fa-arrow-down"></i></a>
+                                 <div class="menu-subs menu-mega menu-column-4">
+                                    <?=$this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('brand_menu_block')->toHtml();?>
+                                 </div>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <span class="mobile_menu_item">
+                                    <a href="<?= $this->getUrl('contact'); ?>"><?= __('CONTACT US') ?></a>
+                                </span>
+                                 <a class="d_menu" href="<?= $this->getUrl('contact'); ?>"><span><?= __('CONTACT US') ?></span></a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <span class="mobile_menu_item">
+                                    <a href="<?= $this->getUrl('faq'); ?>"><?= __('FAQ') ?></a>
+                                </span>
+                                 <a class="d_menu" href="<?= $this->getUrl('faq'); ?>"><span><?= __('FAQ') ?></span></a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div></div>
+        </div>
+    </header>
+    <div class="nav-border-bottom"></div>
+</div>
+ 
+<script>
+  require(['jquery', 'mageplaza/core/owl.carousel','Magento_Customer/js/customer-data'], function ($, $t,customerData) {
+      $(document).ready(function(){
+        $("span.action.nav-toggle").click(function(){
+            $('.menu').addClass('active');
+            $('.overlay').addClass('active');
+            $('body').addClass('menu_active');
+        });
+      });
+    });
+</script>
+ 
+
+
+<script>
+    const menu = document.querySelector('.menu');
+    const menuSection = menu.querySelector('.menu-section');
+    const menuArrow = menu.querySelector('.menu-mobile-arrow');
+    const menuClosed = menu.querySelector('.menu-mobile-close');
+    const menuToggle = document.querySelector('.menu-mobile-toggle');
+    const menuOverlay = document.querySelector('.overlay');
+    const body = document.querySelector('body');
+    let subMenu;
+
+    menuSection.addEventListener('click', (e) => {
+        if (!menu.classList.contains('active')) {
+            return;
+        }
+        if (e.target.closest('.menu-item-has-children')) {
+            const hasChildren = e.target.closest('.menu-item-has-children');
+            showSubMenu(hasChildren);
+        }
+    });
+
+    menuArrow.addEventListener('click', () => {
+        hideSubMenu();
+    });
+
+    menuClosed.addEventListener('click', () => {
+        toggleMenu();
+    });
+
+    menuOverlay.addEventListener('click', () => {
+        toggleMenu();
+    });
+
+
+    function toggleMenu() {
+        menu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        body.classList.toggle('menu_active');
+    }
+
+
+    function showSubMenu(hasChildren) {
+        subMenu = hasChildren.querySelector('.menu-subs');
+        subMenu.classList.add('active');
+        subMenu.style.animation = 'slideLeft 0.5s ease forwards';
+        const menuTitle = hasChildren.querySelector('i').parentNode.childNodes[0].textContent;
+        menu.querySelector('.menu-mobile-title').innerHTML = menuTitle;
+        menu.querySelector('.menu-mobile-header').classList.add('active');
+    }
+
+
+    function hideSubMenu() {
+        subMenu.style.animation = 'slideRight 0.5s ease forwards';
+        setTimeout(() => {
+            subMenu.classList.remove('active');
+        }, 300);
+
+        menu.querySelector('.menu-mobile-title').innerHTML = '';
+        menu.querySelector('.menu-mobile-header').classList.remove('active');
+    }
+
+
+    window.onresize = function() {
+        if (this.innerWidth > 1199) {
+            if (menu.classList.contains('active')) {
+                toggleMenu();
+            }
+        }
+    };
+</script> 
+
+<style type="text/css">
+    body.menu_active {
+        overflow: hidden;
+    }
+     @media only screen and (min-width: 992px){
+        .desktop-menu .item.item-brand {
+          width: 13%;
+        }
+    }
+</style>

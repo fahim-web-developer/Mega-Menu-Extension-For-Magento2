@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="css/navigation.css"/>
+    </head>
+    <body> 
+        <referenceContainer name="header-wrapper">
+            <block class="Fahim\MegaMenu\Block\Index" name="megamenu-template" template="Fahim_MegaMenu::index.phtml" after="-"/>
+        </referenceContainer>
+    </body>
+</page>
